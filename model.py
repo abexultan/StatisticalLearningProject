@@ -100,7 +100,7 @@ class DecisionTreeClassifierAltered(DecisionTreeClassifier):
                 c = classes[i - 1]
                 num_left[c] += 1
                 num_right[c] -= 1
-                true_labels = classes[:i - 1]
+                true_labels = classes[:i]
                 majority_left = num_left.argmax()
                 majority_right = num_right.argmax()
                 acc_left = accuracy_score(true_labels, [majority_left for _ in range(len(true_labels))])
