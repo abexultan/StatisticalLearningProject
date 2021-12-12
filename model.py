@@ -100,11 +100,14 @@ class DecisionTreeClassifierAltered(DecisionTreeClassifier):
                 c = classes[i - 1]
                 num_left[c] += 1
                 num_right[c] -= 1
-                true_labels = classes[:i]
+                true_labels_left = classes[:i]
+                true_labels_right = classes[i:]
                 majority_left = num_left.argmax()
                 majority_right = num_right.argmax()
-                acc_left = accuracy_score(true_labels, [majority_left for _ in range(len(true_labels))])
-                acc_right = accuracy_score(true_labels, [majority_right for _ in range(len(true_labels))])
+                acc_left = accuracy_score(true_labels_left,
+                                          [majority_left for _ in range(len(true_labels_left))])
+                acc_right = accuracy_score(true_labels_right, 
+                                           [majority_right for _ in range(len(true_labels_right))])
                 accuracy = (i * acc_left + (m - i) * acc_right) / m
                 if thresholds[i] == thresholds[i - 1]:
                     continue
